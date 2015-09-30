@@ -50,9 +50,6 @@ endmacro()
 
 macro(biorobotics_debug_flags)
     if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-        # remove all previously set compiler and linker flags for debug build
-        set(CMAKE_CXX_FLAGS "")
-        set(CMAKE_EXE_LINKER_FLAGS "")
         get_gcc_version()
         set(CMAKE_CXX_FLAGS_DEBUG "-Og -ggdb3")
         if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND
