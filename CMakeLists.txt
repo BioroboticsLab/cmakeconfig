@@ -121,6 +121,59 @@ macro(biorobotics_handle_gcc)
     endif()
 endmacro()
 
+macro(get_optional_tag)
+    set(extra_args ${ARGN})
+    if (NOT "${extra_args}" STREQUAL "")
+        set(tag "${extra_args}")
+    endif ()
+endmacro()
+
+macro(include_pipeline)
+    set(tag "cpm")
+    get_optional_tag(${ARGN})
+    if(DEFINED PIPELINE_PATH)
+        CPM_AddModule("pipeline"
+            SOURCE_DIR "${PIPELINE_PATH}")
+    else()
+        CPM_AddModule("pipeline"
+            GIT_REPOSITORY "https://github.com/BioroboticsLab/pipeline.git"
+            GIT_TAG "${tag}")
+    endif()
+endmacro()
+
+macro(include_deeplocalizer_classifier)
+    set(tag "master")
+    get_optional_tag(${ARGN})
+    if(NOT DEFINED DEEPLOCALIZER_CLASSIFIER_PATH)
+        CPM_AddModule("deeplocalizer_classifier"
+                GIT_REPOSITORY "https://github.com/BioroboticsLab/deeplocalizer_classifier.git"
+                GIT_TAG "master"
+                EXPORT_MODULE TRUE
+        )
+    else()
+        CPM_AddModule("deeplocalizer_classifier"
+                SOURCE_DIR "${DEEPLOCALIZER_CLASSIFIER_PATH}"
+                EXPORT_MODULE TRUE
+        )
+    endif()
+endmacro()
+
+macro(include_biotracker_core)
+    set(tag "606e6144615a1efda634278efa06497a0bc88681")
+    get_optional_tag(${ARGN})
+    if(DEFINED BIOTRACKER_CORE_PATH)
+        CPM_AddModule("BioTracker"
+            SOURCE_DIR "${BIOTRACKER_CORE_PATH}"
+        )
+    else()
+        CPM_AddModule("BioTracker"
+            GIT_REPOSITORY "https://github.com/BioroboticsLab/biotracker_core.git"
+            # commit from 29.9.2015
+            GIT_TAG ${tag}
+        )
+    endif()
+endmacro()
+
 macro(biorobotics_config)
     biorobotics_release_flags()
     biorobotics_debug_flags()
