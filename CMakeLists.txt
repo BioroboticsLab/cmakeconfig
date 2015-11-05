@@ -129,7 +129,7 @@ macro(get_optional_tag)
 endmacro()
 
 macro(include_pipeline)
-    set(tag "cpm")
+    set(tag "master")
     get_optional_tag(${ARGN})
     if(DEFINED PIPELINE_PATH)
         CPM_AddModule("pipeline"
