@@ -174,6 +174,11 @@ macro(include_biotracker_core)
     endif()
 endmacro()
 
+macro(biorobotics_set_compiler_flags)
+    biorobotics_config()
+endmacro()
+
+
 macro(biorobotics_config)
     biorobotics_release_flags()
     biorobotics_debug_flags()
