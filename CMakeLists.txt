@@ -198,7 +198,7 @@ macro(include_deeplocalizer_models)
         )
     else()
         CPM_AddModule("deeplocalizer_models"
-            GIT_REPOSITORY "git@github.com:BioroboticsLab/deeplocalizer_models.git"
+            GIT_REPOSITORY "https://github.com/BioroboticsLab/deeplocalizer_models.git"
             GIT_TAG ${tag}
         )
     endif()
