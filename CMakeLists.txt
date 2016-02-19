@@ -174,6 +174,21 @@ macro(include_biotracker_core)
     endif()
 endmacro()
 
+macro(include_mxnetpredict)
+    set(tag "master")
+    get_optional_tag(${ARGN})
+    if(DEFINED MXNETPREDICT_PATH)
+        CPM_AddModule("mxnetpredict"
+            SOURCE_DIR "${MXNETPREDICT_PATH}"
+        )
+    else()
+        CPM_AddModule("mxnetpredict"
+            GIT_REPOSITORY "https://github.com/nebw/mxnetpredict.git"
+            GIT_TAG ${tag}
+        )
+    endif()
+endmacro()
+
 macro(biorobotics_set_compiler_flags)
     biorobotics_config()
 endmacro()
