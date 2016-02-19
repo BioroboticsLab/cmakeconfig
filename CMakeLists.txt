@@ -189,6 +189,21 @@ macro(include_mxnetpredict)
     endif()
 endmacro()
 
+macro(include_deeplocalizer_models)
+    set(tag "master")
+    get_optional_tag(${ARGN})
+    if(DEFINED DEEPLOCALIZER_MODELS_PATH)
+        CPM_AddModule("deeplocalizer_models"
+            SOURCE_DIR "${DEEPLOCALIZER_MODELS_PATH}"
+        )
+    else()
+        CPM_AddModule("deeplocalizer_models"
+            GIT_REPOSITORY "git@github.com:BioroboticsLab/deeplocalizer_models.git"
+            GIT_TAG ${tag}
+        )
+    endif()
+endmacro()
+
 macro(biorobotics_set_compiler_flags)
     biorobotics_config()
 endmacro()
