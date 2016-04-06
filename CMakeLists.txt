@@ -204,6 +204,21 @@ macro(include_deeplocalizer_models)
     endif()
 endmacro()
 
+macro(include_beesbook_groundtruth)
+    set(tag "master")
+    get_optional_tag(${ARGN})
+    if(DEFINED BEESBOOK_GROUNDTRUTH_PATH)
+        CPM_AddModule("groundtruth"
+            SOURCE_DIR "${BEESBOOK_GROUNDTRUTH_PATH}"
+        )
+    else()
+        CPM_AddModule("groundtruth"
+            GIT_REPOSITORY "https://github.com/BioroboticsLab/groundtruthConvert.git"
+            GIT_TAG ${tag}
+        )
+    endif()
+endmacro()
+
 macro(biorobotics_set_compiler_flags)
     biorobotics_config()
 endmacro()
