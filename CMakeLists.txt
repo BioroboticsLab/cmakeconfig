@@ -93,7 +93,10 @@ endmacro()
 
 macro(biorobotics_handle_windows)
     if(WIN32)
-        add_definitions(-D_WINSOCKAPI_)
+        # This macro prevents the windows.h header from including a lot of other things;
+        # among them: winsock. Just defining _WINSOCK_ will always lead to a macro redefinition warning when including winsock2.
+        # Note for those who are not aware: we must not include winsock.h (and use winsock2.h instead).
+        add_definitions(-DWIN32_LEAN_AND_MEAN)
     endif()
 endmacro()
 
