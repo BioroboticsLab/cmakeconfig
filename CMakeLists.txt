@@ -173,6 +173,14 @@ endmacro()
 macro(include_biotracker_core)
     set(tag "606e6144615a1efda634278efa06497a0bc88681")
     get_optional_tag(${ARGN})
+    
+    # Allow fallback to env. variable for the core path.
+    if((NOT (DEFINED BIOTRACKER_CORE_PATH)) AND (DEFINED ENV{BIOTRACKER_CORE_PATH}))
+        SET(BIOTRACKER_CORE_PATH $ENV{BIOTRACKER_CORE_PATH} CACHE STRING "Path to a local copy of the biotracker core repository" FORCE)
+        # And also communicate to the user that the fallback is used.
+        MESSAGE(STATUS "Using local biotracker_core copy at ${BIOTRACKER_CORE_PATH}")
+    endif()
+    
     if(DEFINED BIOTRACKER_CORE_PATH)
         CPM_AddModule("BioTracker"
             SOURCE_DIR "${BIOTRACKER_CORE_PATH}"
