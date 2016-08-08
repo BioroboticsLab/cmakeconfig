@@ -42,6 +42,8 @@ macro(biorobotics_release_flags)
         # enable C++1y
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y -fPIE -fPIC")
         set(CMAKE_CXX_STANDARD 14)
+        # fix boost for newer gcc versions (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59087)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals")
         # enable all warnings
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Woverloaded-virtual -Wold-style-cast -Wnon-virtual-dtor -Wsign-promo -Wno-missing-braces")
         # warnings are errors
